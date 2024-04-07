@@ -27,7 +27,7 @@ const onDelete = async (contentId) => {
       },
     });
     const resp = await rawResp.json();
-    window.location.href = "/";
+    // window.location.href = "/";
     return resp;
   } catch (err) {
     console.log(err);
