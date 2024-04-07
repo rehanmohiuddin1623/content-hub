@@ -6,8 +6,8 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
-const MongoStore = require('connect-mongo')
-const path = require('path');
+const MongoStore = require("connect-mongo");
+const path = require("path");
 
 // Define User schema
 const User = mongoose.model("User", {
@@ -33,8 +33,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(express.static(path.join(__dirname, '../frontend')));
-
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 // Middleware
 app.use(express.json());
@@ -48,11 +47,14 @@ app.use(
       secure: false,
       maxAge: 1000 * 60 * 60 * 24 * 365,
     },
-    store:  MongoStore.create({mongoUrl:process.env.MONGO_DB_URI,dbName:process.env.DB_NAME})
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_DB_URI,
+      dbName: process.env.DB_NAME,
+    }),
   })
 );
 
-console.log("MONGO URI : ", process.env.MONGO_DB_URI,process.env.UI_URL);
+console.log("MONGO URI : ", process.env.MONGO_DB_URI, process.env.UI_URL);
 
 // Connect to MongoDB
 mongoose
@@ -67,10 +69,20 @@ mongoose
 // Authentication middleware
 const isAuthenticated = (req, res, next) => {
   console.log("isAuthenticated", req.session.user);
-  if (req.session.user) {
+  if (
+    req.session &&
+    req.session.cookie &&
+    req.session.cookie.expires &&
+    new Date(req.session.cookie.expires) < new Date()
+  ) {
+    // Session is expired, destroy it
+    req.session.destroy();
+    res.redirect("/src/auth/login.html");
+  } else if (req.session.user) {
     next();
   } else {
-    res.status(401).json({ message: "Unauthorized" });
+    // res.status(401).json({ message: "Unauthorized" });
+    res.redirect("/src/auth/login.html");
   }
 };
 
@@ -131,7 +143,7 @@ app.post("/logout", (req, res) => {
   res.json({ message: "Logout successful" });
 });
 
-app.get("/blogs", async (req, res) => {
+app.get("/blogs", isAuthenticated, async (req, res) => {
   const blogs = await Blog.find({}).lean();
   res.json({
     message: blogs,
@@ -145,7 +157,7 @@ app.post("/blogs", isAuthenticated, isAdmin, async (req, res) => {
   res.json(blog);
 });
 
-app.get("/blog/:id", async (req, res) => {
+app.get("/blog/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params;
   const blog = await Blog.findById(id).lean();
   res.json({
