@@ -1,10 +1,11 @@
+const BACKEND_URL="https://content-hub-tlr4.onrender.com";
 const quill = new Quill("#editor", {
   theme: "snow",
 });
 
 const fetchContent = async (contentId) => {
   try {
-    const rawResp = await fetch(`http://127.0.0.1:3000/blog/${contentId}`, {
+    const rawResp = await fetch(`${BACKEND_URL}/blog/${contentId}`, {
       credentials: "include",
       method: "GET",
       headers: {

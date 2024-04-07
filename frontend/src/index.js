@@ -1,6 +1,8 @@
+const BACKEND_URL="https://content-hub-tlr4.onrender.com";
+
 const getContentLists = async () => {
   try {
-    const rawResp = await fetch("http://127.0.0.1:3000/blogs", {
+    const rawResp = await fetch(`${BACKEND_URL}/blogs`, {
       credentials: "include",
       method: "GET",
       headers: {
@@ -17,7 +19,7 @@ const getContentLists = async () => {
 
 const onDelete = async (contentId) => {
   try {
-    const rawResp = await fetch(`http://127.0.0.1:3000/blogs/${contentId}`, {
+    const rawResp = await fetch(`${BACKEND_URL}/blogs/${contentId}`, {
       credentials: "include",
       method: "DELETE",
       headers: {
@@ -25,7 +27,7 @@ const onDelete = async (contentId) => {
       },
     });
     const resp = await rawResp.json();
-    window.location.href = "/frontend/";
+    window.location.href = "/";
     return resp;
   } catch (err) {
     console.log(err);
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mainAcion = document.getElementById("main-action");
     const button = document.createElement("button");
     button.onclick = () => {
-      window.location.href = "/frontend/src/content/create.html";
+      window.location.href = "/src/content/create.html";
     };
     button.innerHTML = "Add Content";
     mainAcion.appendChild(button);
@@ -76,13 +78,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     // actionCell.append([...actions]);
     tableRow.appendChild(noCell);
     const title = document.createElement("a");
-    title.href = `/frontend/src/content/view.html?contentId=${content._id}`;
+    title.href = `//src/content/view.html?contentId=${content._id}`;
     title.innerHTML = content.title || "No Title";
     title.classList.add("content-title");
     titleCell.appendChild(title);
     tableRow.appendChild(titleCell);
     actions[0].innerHTML = "Edit";
-    actions[0].href = `/frontend/src/content/edit.html?contentId=${content._id}`;
+    actions[0].href = `//src/content/edit.html?contentId=${content._id}`;
     actions[1].innerHTML = "Delete";
     actions[1].onclick = () => {
       onDelete(content._id);

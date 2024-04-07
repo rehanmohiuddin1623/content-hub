@@ -1,6 +1,8 @@
+const BACKEND_URL="https://content-hub-tlr4.onrender.com";
+
 const signin = async ({ username, password }) => {
   try {
-    const rawResp = await fetch("http://127.0.0.1:3000/login", {
+    const rawResp = await fetch(`${BACKEND_URL}/login`, {
       credentials: "include",
       method: "POST",
       headers: {
@@ -14,7 +16,7 @@ const signin = async ({ username, password }) => {
     const resp = await rawResp.json();
     console.log(resp);
     localStorage.setItem("user", JSON.stringify(resp.message));
-    window.location.href = "/frontend";
+    window.location.href = "/";
   } catch (err) {
     console.log(err);
   }

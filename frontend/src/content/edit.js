@@ -1,10 +1,12 @@
+const BACKEND_URL="https://content-hub-tlr4.onrender.com";
+
 const quill = new Quill("#editor", {
   theme: "snow",
 });
 
 const fetchContent = async (contentId) => {
   try {
-    const rawResp = await fetch(`http://127.0.0.1:3000/blog/${contentId}`, {
+    const rawResp = await fetch(`${BACKEND_URL}/blog/${contentId}`, {
       credentials: "include",
       method: "GET",
       headers: {
@@ -23,7 +25,7 @@ const onedit = async () => {
   try {
     const [, contentId] = window.location.search.split("contentId=");
     const { ops } = quill.getContents();
-    const rawResp = await fetch(`http://127.0.0.1:3000/blog`, {
+    const rawResp = await fetch(`${BACKEND_URL}/blog`, {
       credentials: "include",
       method: "PUT",
       headers: {
@@ -36,7 +38,7 @@ const onedit = async () => {
       }),
     });
     const resp = await rawResp.json();
-    window.location.href = "/frontend/";
+    window.location.href = "/";
     return resp;
   } catch (err) {
     console.log(err);

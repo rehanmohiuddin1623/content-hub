@@ -1,3 +1,5 @@
+const BACKEND_URL="https://content-hub-tlr4.onrender.com";
+
 const quill = new Quill("#editor", {
   theme: "snow",
 });
@@ -5,7 +7,7 @@ const quill = new Quill("#editor", {
 const createContent = async (ops) => {
   try {
     console.log("ops", document.getElementById("title").value);
-    const rawResp = await fetch("http://127.0.0.1:3000/blogs", {
+    const rawResp = await fetch(`${BACKEND_URL}/blogs`, {
       credentials: "include",
       method: "POST",
       headers: {
@@ -17,7 +19,7 @@ const createContent = async (ops) => {
       }),
     });
     const resp = await rawResp.json();
-    window.location.href = "/frontend/";
+    window.location.href = "/";
   } catch (err) {
     console.log(err);
   }
