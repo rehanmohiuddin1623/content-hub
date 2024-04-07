@@ -48,7 +48,7 @@ app.use(
       secure: process.env.ENV==="production"?true:false,
       maxAge: 1000 * 60 * 60 * 24 * 365,
     },
-    store:  MongoStore.create({mongoUrl:process.env.MONGO_DB_URI})
+    // store:  MongoStore.create({mongoUrl:process.env.MONGO_DB_URI})
   })
 );
 
