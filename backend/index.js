@@ -46,7 +46,7 @@ app.use(
   })
 );
 
-console.log("MONGO URI : ", process.env.MONGO_DB_URI);
+console.log("MONGO URI : ", process.env.MONGO_DB_URI,process.env.UI_URL);
 
 // Connect to MongoDB
 mongoose
