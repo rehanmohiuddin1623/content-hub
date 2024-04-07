@@ -1,4 +1,4 @@
-const BACKEND_URL="https://content-hub-tlr4.onrender.com";
+const BACKEND_URL = "http://127.0.0.1:3000";
 
 const getContentLists = async () => {
   try {
@@ -9,8 +9,13 @@ const getContentLists = async () => {
         "Content-Type": "application/json",
       },
     });
+
+    if (rawResp.status === 401) {
+      window.location.href = "/src/auth/login.html";
+      return;
+    }
     const resp = await rawResp.json();
-    console.log(resp);
+
     return resp;
   } catch (err) {
     console.log(err);

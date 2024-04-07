@@ -81,8 +81,7 @@ const isAuthenticated = (req, res, next) => {
   } else if (req.session.user) {
     next();
   } else {
-    // res.status(401).json({ message: "Unauthorized" });
-    res.redirect("/src/auth/login.html");
+    res.status(401).json({ message: "Unauthorized" });
   }
 };
 
