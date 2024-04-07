@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View <Details></Details></title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.5/dist/quill.snow.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Content Hub</h1>
+      <nav>
+        <ul>
+          <li><a href="/frontend/">Home</a></li>
+          <li><a href="#">LogOut</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="content-container">
+      <section class="title-section">
+        <label>Title</label>
+        <input id="title" class="title" placeholder="About Experience"  />
+      </section>
+      <section>
+        <label>Description</label>
+        <div id="editor">
+          <p><br /></p>
+        </div>
+      </section>
+      <section class="footer" >
+        <a class="cancel" href="/frontend/index.html" >Cancel</a>
+        <button class="create" onclick="onedit()" >Done</button>
+      </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.5/dist/quill.js"></script>
+    <script type="text/javascript" src="edit.js"></script>
+  </body>
+</html>
