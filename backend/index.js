@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const MongoStore = require('connect-mongo')
+const path = require('path');
 
 // Define User schema
 const User = mongoose.model("User", {
@@ -31,6 +32,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 
 // Middleware
 app.use(express.json());
