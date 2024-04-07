@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
+const MongoStore = require('connect-mongo')
 
 // Define User schema
 const User = mongoose.model("User", {
@@ -43,6 +44,7 @@ app.use(
       secure: false,
       maxAge: 1000 * 60 * 60 * 24 * 365,
     },
+    store:  MongoStore.create({mongoUrl:process.env.MONGO_DB_URI})
   })
 );
 
