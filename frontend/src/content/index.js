@@ -19,7 +19,7 @@ const createContent = async (ops) => {
       }),
     });
     const resp = await rawResp.json();
-    window.location.href = "/";
+    // window.location.href = "/";
   } catch (err) {
     console.log(err);
   }
