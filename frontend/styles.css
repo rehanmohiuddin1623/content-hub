@@ -35,6 +35,7 @@ tr {
 td {
   padding: 0.3rem;
   align-items: left;
+  text-align: center;
 }
 .actions {
   display: flex;
@@ -49,10 +50,9 @@ td {
   padding: 0.4rem;
 }
 
-.content-title{
+.content-title {
   font-weight: 400;
   text-decoration: none;
   color: black;
   border-bottom: 1px dotted gray;
 }
-
